@@ -74,15 +74,6 @@ python3 scripts/smoke_test.py
 # 3. Comprehensive Evaluation Benchmark (20 test cases: 12 golden, 6 edge cases, 2 prompt injection attacks)
 python3 eval/run_eval.py
 
-# 4. Automated 5-Minute Golden Demo Scenario Runner
+# 4. Automated End-to-End Scenario Runner
 python3 scripts/demo_scenario_runner.py
 ```
-
----
-
-## 5. 5-Minute Demo Walkthrough Script
-
-- **00:00 – 01:15 (Zero-Friction 1-Step Deployment):** Autonomous Python project scanning, extraction of `.env.example` keys using the Secret-Blind architecture, budget-friendly tier recommendation, and 1-click launch approval via `UnifiedZeroFrictionLaunchCard`.
-- **01:15 – 02:30 (Build Failure & Autonomous Auto-Heal Loop):** Simulated build error triggered by port and dependency mismatches in `requirements.txt`. The 4-part structured contract is handed off to `code-remediator`, rendering a live diff in `AutomatedBuildHealerBridgeCard` and recovering autonomously to `RUNNING`.
-- **02:30 – 03:45 (HTTP 500 Incident, RAM Saturation & Toxic Log Defense):** 3 SRE workers execute in parallel under 30 seconds. A malicious prompt injection inside HTTP error logs is neutralized, `OOMKilled (Exit 137)` is diagnosed with 94% confidence, and resources are scaled up following HITL confirmation.
-- **03:45 – 05:00 (IRNIC Domain, `trace.jsonl` Observability & Emergency Kill-Switch):** Demonstrates `.ir` domain DNS guidance in IRNIC, inspects the immutable audit log, and activates the red **Kill-Switch** to immediately revoke virtual agent credentials and set status to `DECOMMISSIONED`.
