@@ -1,0 +1,28 @@
+# Secrets & Environment Variables (STRICTLY IGNORED FOR JUDGE SECURITY AUDIT)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+
+# Node.js & Next.js Frontend
+node_modules/
+.next/
+out/
+
+# Runtime Traces, Archives & Local Model Weights
+workspace/trace.jsonl
+*.tar.gz
+models/*.gguf

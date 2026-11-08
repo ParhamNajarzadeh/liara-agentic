@@ -1,0 +1,12 @@
+{
+  "project_name": "shop-api-prod",
+  "platform": "python",
+  "detected_port": 8000,
+  "env_key_names": [
+    "APP_ENV",
+    "PORT",
+    "DATABASE_URL",
+    "REDIS_URL"
+  ],
+  "liara_json_generated": true
+}

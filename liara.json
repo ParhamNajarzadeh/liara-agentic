@@ -1,0 +1,22 @@
+{
+  "app": "liara-agentic-sre-assistant",
+  "platform": "docker",
+  "port": 8000,
+  "build": {
+    "location": "iran",
+    "dockerfile": "Dockerfile"
+  },
+  "healthCheck": {
+    "command": "curl -f http://localhost:8000/healthz || exit 1",
+    "interval": 30,
+    "timeout": 5,
+    "retries": 3,
+    "startPeriod": 15
+  },
+  "disks": [
+    {
+      "name": "sre-audit-traces",
+      "mountTo": "/app/workspace"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "liara-mcp-server": {
+      "command": "python3",
+      "args": ["-m", "src.mcp_server.server"],
+      "env": {
+        "LIARA_VIRTUAL_AGENT_IDENTITY": "liara-sre-virtual-agent",
+        "METIS_PRIMARY_MODEL": "deepseek-v4.1-flash",
+        "METIS_DEEPSEEK_BASE_URL": "https://api.metisai.ir/deepseek/v1"
+      }
+    }
+  }
+}

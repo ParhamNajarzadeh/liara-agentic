@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  liara-sre-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: liara-sre-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - METIS_API_KEY=${METIS_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - LIARA_API_TOKEN=${LIARA_API_TOKEN:-}
+      - METIS_PRIMARY_MODEL=${METIS_PRIMARY_MODEL:-deepseek-v4.1-flash}
+    volumes:
+      - ./src:/app/src
+      - ./workspace:/app/workspace
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/healthz"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  liara-sre-frontend:
+    image: node:20-alpine
+    container_name: liara-sre-frontend
+    working_dir: /app
+    volumes:
+      - ./src/frontend:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - HOSTNAME=0.0.0.0
+      - PORT=3000
+    command: sh -c "npm install && npm run dev"
+    depends_on:
+      - liara-sre-backend
+    restart: unless-stopped

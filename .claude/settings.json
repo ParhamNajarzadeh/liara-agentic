@@ -1,0 +1,35 @@
+{
+  "agentName": "liara-agentic-sre",
+  "defaultModel": "deepseek-v4.1-flash",
+  "systemOneRouter": "jev-typesafe-mizan-4b",
+  "hooks": {
+    "SessionStart": [
+      {
+        "name": "load_claude_and_memory_anchors",
+        "command": "python3 -c \"from src.core.config import get_settings; get_settings()\"",
+        "description": "Load CLAUDE.md static rules, MEMORY.md episodic learnings, and verify Short-TTL virtual token."
+      }
+    ],
+    "PreToolUse": [
+      {
+        "name": "pre_tool_security_and_anti_fatigue_hitl_guardrail",
+        "module": "src.core.system_one_engine.SystemOneDecisionEngine.evaluate_pre_tool_guardrail",
+        "description": "Enforce Anti-Fatigue HITL (autonomous read/prep/build-heal vs financial/prod interrupt) and hard-block DELETE /v1/projects/{name}."
+      }
+    ],
+    "PostToolUse": [
+      {
+        "name": "post_tool_log_sanitizer_and_audit_trace",
+        "module": "src.core.governance.LogSanitizer.sanitize_and_wrap",
+        "description": "Sanitize secrets, wrap untrusted logs in <untrusted_log_data>, and append span to workspace/trace.jsonl."
+      }
+    ],
+    "SessionEnd": [
+      {
+        "name": "persist_episodic_learnings_and_compact",
+        "module": "src.core.context_manager.JITFileRetriever.update_episodic_memory_file",
+        "description": "Persist incident RCA and build-healer learnings into MEMORY.md."
+      }
+    ]
+  }
+}
